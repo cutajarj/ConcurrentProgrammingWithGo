@@ -23,5 +23,5 @@ func main() {
     go stingy(&money)
     go spendy(&money)
     time.Sleep(2 * time.Second)
-    print("Money in bank account: ", money)
+    println("Money in bank account: ", money)
 }
