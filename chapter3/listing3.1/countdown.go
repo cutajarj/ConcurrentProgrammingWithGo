@@ -13,7 +13,7 @@ func countdown(seconds *int) {
 
 func main() {
     count := 5
-    countdown(&count)
+    go countdown(&count)
     for count > 0 {
         time.Sleep(500 * time.Millisecond)
         println(count)
