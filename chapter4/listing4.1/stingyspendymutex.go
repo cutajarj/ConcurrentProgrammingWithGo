@@ -29,5 +29,7 @@ func main() {
     go stingy(&money, &mutex)
     go spendy(&money, &mutex)
     time.Sleep(2 * time.Second)
+    mutex.Lock()
     println("Money in bank account: ", money)
+    mutex.Unlock()
 }
