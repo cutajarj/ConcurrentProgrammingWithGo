@@ -1,4 +1,4 @@
-package main
+package listing4_3
 
 import (
     "fmt"
@@ -6,16 +6,14 @@ import (
     "net/http"
     "strings"
     "sync"
-    "time"
 )
 
 const allLetters = "abcdefghijklmnopqrstuvwxyz"
 
-/*
-  Note: this program us locking the entire goroutine with mutex on purpose to demonstrate
-  bad placement of the lock and unlock. We fix this in the next listing
-*/
-func countLetters(url string, frequency []int, mutex *sync.Mutex) {
+// CountLetters
+//Note: this program us locking the entire goroutine with mutex on purpose to demonstrate
+//bad placement of the lock and unlock. We fix this in the next listing
+func CountLetters(url string, frequency []int, mutex *sync.Mutex) {
     mutex.Lock()
     resp, _ := http.Get(url)
     defer resp.Body.Close()
@@ -31,15 +29,3 @@ func countLetters(url string, frequency []int, mutex *sync.Mutex) {
     mutex.Unlock()
 }
 
-func main() {
-    mutex := sync.Mutex{}
-    var frequency = make([]int, 26)
-    for i := 1000; i <= 1200; i++ {
-        url := fmt.Sprintf("https://rfc-editor.org/rfc/rfc%d.txt", i)
-        go countLetters(fmt.Sprintf(url), frequency, &mutex)
-    }
-    time.Sleep(10 * time.Second)
-    mutex.Lock()
-    fmt.Println(frequency)
-    mutex.Unlock()
-}
