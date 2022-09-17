@@ -1,4 +1,4 @@
-package main
+package listing4_4
 
 import (
     "fmt"
@@ -6,12 +6,11 @@ import (
     "net/http"
     "strings"
     "sync"
-    "time"
 )
 
 const allLetters = "abcdefghijklmnopqrstuvwxyz"
 
-func countLetters(url string, frequency []int, mutex *sync.Mutex) {
+func CountLetters(url string, frequency []int, mutex *sync.Mutex) {
     resp, _ := http.Get(url)
     defer resp.Body.Close()
     body, _ := ioutil.ReadAll(resp.Body)
@@ -27,15 +26,4 @@ func countLetters(url string, frequency []int, mutex *sync.Mutex) {
     fmt.Println("Completed:", url)
 }
 
-func main() {
-    mutex := sync.Mutex{}
-    var frequency = make([]int, 26)
-    for i := 1000; i <= 1200; i++ {
-        url := fmt.Sprintf("https://rfc-editor.org/rfc/rfc%d.txt", i)
-        go countLetters(fmt.Sprintf(url), frequency, &mutex)
-    }
-    time.Sleep(10 * time.Second)
-    mutex.Lock()
-    fmt.Println(frequency)
-    mutex.Unlock()
-}
+
