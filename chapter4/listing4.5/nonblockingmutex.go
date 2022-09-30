@@ -1,24 +1,26 @@
 package main
 
 import (
+    "fmt"
+    "github.com/cutajarj/ConcurrentProgrammingWithGo/chapter4/listing4.4"
     "sync"
     "time"
 )
 
 func main() {
     mutex := sync.Mutex{}
-    mutex.Lock()
-    go pollMutex(&mutex)
-    time.Sleep(1 * time.Second)
-    mutex.Unlock()
-    time.Sleep(1 * time.Second)
-}
-
-func pollMutex(mutex *sync.Mutex) {
-    for !mutex.TryLock() {
-        println("Mutex already being used")
-        time.Sleep(200 * time.Millisecond)
+    var frequency = make([]int, 26)
+    for i := 1000; i <= 1200; i++ {
+        url := fmt.Sprintf("https://rfc-editor.org/rfc/rfc%d.txt", i)
+        go listing4_4.CountLetters(url, frequency, &mutex)
     }
-    println("Child goroutine acquired mutex")
-    mutex.Unlock()
+    for i := 0; i < 100; i++ {
+        time.Sleep(100 * time.Millisecond)
+        if mutex.TryLock() {
+            fmt.Println(frequency)
+            mutex.Unlock()
+        } else {
+            fmt.Println("Mutex already being used")
+        }
+    }
 }
