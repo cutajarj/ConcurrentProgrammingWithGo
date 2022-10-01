@@ -1,6 +1,7 @@
 package main
 
 import (
+    "fmt"
     "sync"
     "time"
 )
@@ -11,7 +12,7 @@ func stingy(money *int, mutex *sync.Mutex) {
         *money += 10
         mutex.Unlock()
     }
-    println("Stingy Done")
+    fmt.Println("Stingy Done")
 }
 
 func spendy(money *int, mutex *sync.Mutex) {
@@ -20,7 +21,7 @@ func spendy(money *int, mutex *sync.Mutex) {
         *money -= 10
         mutex.Unlock()
     }
-    println("Spendy Done")
+    fmt.Println("Spendy Done")
 }
 
 func main() {
@@ -30,6 +31,6 @@ func main() {
     go spendy(&money, &mutex)
     time.Sleep(2 * time.Second)
     mutex.Lock()
-    println("Money in bank account: ", money)
+    fmt.Println("Money in bank account: ", money)
     mutex.Unlock()
 }
