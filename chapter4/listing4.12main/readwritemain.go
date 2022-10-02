@@ -1,12 +1,12 @@
 package main
 
 import (
-    "github.com/cutajarj/ConcurrentProgrammingWithGo/chapter4/listing4.10"
+    "github.com/cutajarj/ConcurrentProgrammingWithGo/chapter4/listing4.12"
     "time"
 )
 
 func main() {
-    rwMutex := listing4_10.ReadWriteMutex{}
+    rwMutex := listing4_12.ReadWriteMutex{}
     for i := 0; i < 10; i++ {
         go func() {
             rwMutex.ReadLock()
