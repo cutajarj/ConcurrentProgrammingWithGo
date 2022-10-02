@@ -1,6 +1,7 @@
 package main
 
 import (
+    "fmt"
     "time"
 )
 
@@ -16,7 +17,7 @@ func main() {
     go countdown(&count)
     for count > 0 {
         time.Sleep(500 * time.Millisecond)
-        println(count)
+        fmt.Println(count)
     }
 }
 
