@@ -5,5 +5,4 @@ Author: James Cutajar
 ISBN: 9781633438385  
 see https://livebook.manning.com/
 
-
 Please note this repo is **not** for the Udemy course.
