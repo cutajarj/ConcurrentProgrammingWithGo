@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"sync"
 	"time"
 )
@@ -16,16 +17,16 @@ func main() {
 
 func playerHandler(cond *sync.Cond, playersRemaining *int, playerId int) {
 	cond.L.Lock()
-	println(playerId, ": Connected")
+	fmt.Println(playerId, ": Connected")
 	*playersRemaining--
 	if *playersRemaining == 0 {
 		cond.Broadcast()
 	}
 	for *playersRemaining > 0 {
-		println(playerId, ": Waiting for more players")
+		fmt.Println(playerId, ": Waiting for more players")
 		cond.Wait()
 	}
 	cond.L.Unlock()
-	println("All players connected. Ready player", playerId)
+	fmt.Println("All players connected. Ready player", playerId)
 	//Game started
 }
