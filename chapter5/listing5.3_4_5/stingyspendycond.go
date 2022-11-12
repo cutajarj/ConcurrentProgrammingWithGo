@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"os"
 	"sync"
 	"time"
@@ -14,7 +15,7 @@ func main() {
 	go spendy(&money, cond)
 	time.Sleep(2 * time.Second)
 	mutex.Lock()
-	println("Money in bank account: ", money)
+	fmt.Println("Money in bank account: ", money)
 	mutex.Unlock()
 }
 
@@ -25,7 +26,7 @@ func stingy(money *int, cond *sync.Cond) {
 		cond.Signal()
 		cond.L.Unlock()
 	}
-	println("Stingy Done")
+	fmt.Println("Stingy Done")
 }
 
 func spendy(money *int, cond *sync.Cond) {
@@ -36,10 +37,10 @@ func spendy(money *int, cond *sync.Cond) {
 		}
 		*money -= 50
 		if *money < 0 {
-			println("Money is negative!")
+			fmt.Println("Money is negative!")
 			os.Exit(1)
 		}
 		cond.L.Unlock()
 	}
-	println("Spendy Done")
+	fmt.Println("Spendy Done")
 }
