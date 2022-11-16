@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"sync"
 	"time"
 )
@@ -59,12 +60,12 @@ func main() {
 			for {
 				rwMutex.ReadLock()
 				time.Sleep(1 * time.Second)
-				println("Read done")
+				fmt.Println("Read done")
 				rwMutex.ReadUnlock()
 			}
 		}()
 	}
 	time.Sleep(1 * time.Second)
 	rwMutex.WriteLock()
-	println("Write finished")
+	fmt.Println("Write finished")
 }
