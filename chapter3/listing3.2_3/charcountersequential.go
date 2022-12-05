@@ -29,7 +29,7 @@ func main() {
 		url := fmt.Sprintf("https://rfc-editor.org/rfc/rfc%d.txt", i)
 		countLetters(url, frequency)
 	}
-	for i, c := range "abcdefghijklmnopqrstuvwxyz" {
+	for i, c := range allLetters {
 		fmt.Printf("%c-%d ", c, frequency[i])
 	}
 }
