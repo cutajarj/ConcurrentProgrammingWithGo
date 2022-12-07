@@ -6,9 +6,10 @@ import (
 	"net/http"
 	"strings"
 	"sync"
+	"time"
 )
 
-const allLetters = "abcdefghijklmnopqrstuvwxyz"
+const AllLetters = "abcdefghijklmnopqrstuvwxyz"
 
 func CountLetters(url string, frequency []int, mutex *sync.Mutex) {
 	resp, _ := http.Get(url)
@@ -17,11 +18,11 @@ func CountLetters(url string, frequency []int, mutex *sync.Mutex) {
 	mutex.Lock()
 	for _, b := range body {
 		c := strings.ToLower(string(b))
-		cIndex := strings.Index(allLetters, c)
+		cIndex := strings.Index(AllLetters, c)
 		if cIndex >= 0 {
 			frequency[cIndex] += 1
 		}
 	}
 	mutex.Unlock()
-	fmt.Println("Completed:", url)
+	fmt.Println("Completed:", url, time.Now().Format("15:04:05"))
 }
