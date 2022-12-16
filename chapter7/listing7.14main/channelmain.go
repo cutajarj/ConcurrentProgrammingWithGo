@@ -2,12 +2,12 @@ package main
 
 import (
 	"fmt"
-	"github.com/cutajarj/ConcurrentProgrammingWithGo/chapter7/listing7.15"
+	"github.com/cutajarj/ConcurrentProgrammingWithGo/chapter7/listing7.14"
 	"sync"
 	"time"
 )
 
-func receiver(messages *listing7_15.Channel[int], wGroup *sync.WaitGroup) {
+func receiver(messages *listing7_14.Channel[int], wGroup *sync.WaitGroup) {
 	msg := 0
 	for msg != -1 {
 		time.Sleep(1 * time.Second)
@@ -18,7 +18,7 @@ func receiver(messages *listing7_15.Channel[int], wGroup *sync.WaitGroup) {
 }
 
 func main() {
-	channel := listing7_15.NewChannel[int](10)
+	channel := listing7_14.NewChannel[int](10)
 	wGroup := sync.WaitGroup{}
 	wGroup.Add(1)
 	go receiver(channel, &wGroup)
