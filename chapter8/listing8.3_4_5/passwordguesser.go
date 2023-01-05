@@ -23,7 +23,7 @@ func guessPassword(from int, upto int, stop chan int, result chan string) {
 	for guessN := from; guessN < upto; guessN += 1 {
 		select {
 		case <-stop:
-			fmt.Printf("Stopping at %d [%d,%d)\n", guessN, from, upto)
+			fmt.Printf("Stopped at %d [%d,%d)\n", guessN, from, upto)
 			return
 		default:
 			if toBase27(guessN) == passwordToGuess {
@@ -43,5 +43,6 @@ func main() {
 		go guessPassword(i, i+10000000, finished, passwordFound)
 	}
 	fmt.Println("password found:", <-passwordFound)
+	close(passwordFound)
 	time.Sleep(5 * time.Second)
 }
