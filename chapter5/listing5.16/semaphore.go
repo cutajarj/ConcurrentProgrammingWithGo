@@ -6,13 +6,13 @@ import (
 
 type Semaphore struct {
     permits int
-    cond *sync.Cond
+    cond    *sync.Cond
 }
 
 func NewSemaphore(n int) *Semaphore {
     return &Semaphore{
         permits: n,
-        cond: sync.NewCond(&sync.Mutex{}),
+        cond:    sync.NewCond(&sync.Mutex{}),
     }
 }
 
