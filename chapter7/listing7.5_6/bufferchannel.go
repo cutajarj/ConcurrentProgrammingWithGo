@@ -1,30 +1,30 @@
 package main
 
 import (
-	"fmt"
-	"sync"
-	"time"
+    "fmt"
+    "sync"
+    "time"
 )
 
 func receiver(messages chan int, wGroup *sync.WaitGroup) {
-	msg := 0
-	for msg != -1 {
-		time.Sleep(1 * time.Second)
-		msg = <-messages
-		fmt.Println(time.Now().Format("15:04:05"), "Received:", msg)
-	}
-	wGroup.Done()
+    msg := 0
+    for msg != -1 {
+        time.Sleep(1 * time.Second)
+        msg = <-messages
+        fmt.Println(time.Now().Format("15:04:05"), "Received:", msg)
+    }
+    wGroup.Done()
 }
 
 func main() {
-	msgChannel := make(chan int, 3)
-	wGroup := sync.WaitGroup{}
-	wGroup.Add(1)
-	go receiver(msgChannel, &wGroup)
-	for i := 1; i <= 6; i++ {
-		fmt.Println(time.Now().Format("15:04:05"), "Sending:", i)
-		msgChannel <- i
-	}
-	msgChannel <- -1
-	wGroup.Wait()
+    msgChannel := make(chan int, 3)
+    wGroup := sync.WaitGroup{}
+    wGroup.Add(1)
+    go receiver(msgChannel, &wGroup)
+    for i := 1; i <= 6; i++ {
+        fmt.Println(time.Now().Format("15:04:05"), "Sending:", i)
+        msgChannel <- i
+    }
+    msgChannel <- -1
+    wGroup.Wait()
 }
