@@ -10,7 +10,6 @@ const (
     everyThingElseTime = 2
 )
 
-
 func PrepareTray(trayNumber int) string {
     fmt.Println("Preparing empty tray", trayNumber)
     time.Sleep(everyThingElseTime * time.Second)
@@ -40,4 +39,3 @@ func Box(finishedCupCake string) string {
     time.Sleep(everyThingElseTime * time.Second)
     return fmt.Sprintf("%s boxed", finishedCupCake)
 }
-
