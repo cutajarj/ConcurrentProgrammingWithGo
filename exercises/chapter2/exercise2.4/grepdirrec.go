@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
 	"log"
 	"os"
 	"path/filepath"
@@ -15,10 +14,10 @@ import (
   go run grepdirrec.go Mozilla ../../commonfiles
 */
 
-func grepPath(path string, fileInfo os.FileInfo, searchStr string) {
-	fullPath := filepath.Join(path, fileInfo.Name())
-	if fileInfo.IsDir() {
-		files, err := ioutil.ReadDir(fullPath)
+func grepPath(path string, dirEntry os.DirEntry, searchStr string) {
+	fullPath := filepath.Join(path, dirEntry.Name())
+	if dirEntry.IsDir() {
+		files, err := os.ReadDir(fullPath)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -41,12 +40,12 @@ func grepPath(path string, fileInfo os.FileInfo, searchStr string) {
 func main() {
 	searchStr := os.Args[1]
 	path := os.Args[2]
-	files, err := ioutil.ReadDir(path)
+	files, err := os.ReadDir(path)
 	if err != nil {
 		log.Fatal(err)
 	}
-	for _, fileInfo := range files {
-		go grepPath(path, fileInfo, searchStr)
+	for _, dirEntry := range files {
+		go grepPath(path, dirEntry, searchStr)
 	}
 	time.Sleep(2 * time.Second)
 }
