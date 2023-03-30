@@ -6,9 +6,9 @@ import (
 )
 
 func doWork(id int) {
-    fmt.Println(id, "Work started at", time.Now().Format("15:04:05"))
+    fmt.Printf("Work %d started at %s\n", id, time.Now().Format("15:04:05"))
     time.Sleep(1 * time.Second)
-    fmt.Println(id, "Work finished at", time.Now().Format("15:04:05"))
+    fmt.Printf("Work %d finished at %s\n", id, time.Now().Format("15:04:05"))
 }
 
 func main() {
