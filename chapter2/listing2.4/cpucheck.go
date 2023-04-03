@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-    fmt.Println(runtime.NumCPU())
+    fmt.Println("Number of CPUs:", runtime.NumCPU())
 
-    fmt.Println(runtime.GOMAXPROCS(0))
+    fmt.Println("GOMAXPROCS:", runtime.GOMAXPROCS(0))
 }
