@@ -5,17 +5,17 @@ import (
     "time"
 )
 
-func sendMsgAfter(seconds int) <-chan string {
+func sendMsgAfter(seconds time.Duration) <-chan string {
     messages := make(chan string)
     go func() {
-        time.Sleep(time.Duration(seconds) * time.Second)
+        time.Sleep(seconds)
         messages <- "Hello"
     }()
     return messages
 }
 
 func main() {
-    messages := sendMsgAfter(3)
+    messages := sendMsgAfter(3 * time.Second)
     for {
         select {
         case msg := <-messages:
