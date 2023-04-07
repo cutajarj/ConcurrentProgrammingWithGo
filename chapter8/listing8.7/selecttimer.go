@@ -7,10 +7,10 @@ import (
     "time"
 )
 
-func sendMsgAfter(seconds int) <-chan string {
+func sendMsgAfter(seconds time.Duration) <-chan string {
     messages := make(chan string)
     go func() {
-        time.Sleep(time.Duration(seconds) * time.Second)
+        time.Sleep(seconds)
         messages <- "Hello"
     }()
     return messages
@@ -18,7 +18,7 @@ func sendMsgAfter(seconds int) <-chan string {
 
 func main() {
     t, _ := strconv.Atoi(os.Args[1])
-    messages := sendMsgAfter(3)
+    messages := sendMsgAfter(3 * time.Second)
     timeoutDuration := time.Duration(t) * time.Second
     select {
     case msg := <-messages:
