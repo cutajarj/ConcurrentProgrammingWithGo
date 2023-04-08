@@ -26,11 +26,11 @@ func primesOnly(inputs <-chan int) <-chan int {
 }
 
 func main() {
-    isPrimeChannel := make(chan int)
-    primes := primesOnly(isPrimeChannel)
+    numbersChannel := make(chan int)
+    primes := primesOnly(numbersChannel)
     for i := 0; i < 100; {
         select {
-        case isPrimeChannel <- rand.Intn(1000000000) + 1:
+        case numbersChannel <- rand.Intn(1000000000) + 1:
         case p := <-primes:
             fmt.Println("Found prime:", p)
             i++
