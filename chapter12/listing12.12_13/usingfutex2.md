@@ -1,7 +1,8 @@
 # Developing a mutex using a futex attempt 2
 
-Note: This code will not compile because we cannot access futexes from Go. This code is to demonstrate the mutex
-algorithms.
+Note: This code will not compile because we cannot access futexes from Go.
+This code is to demonstrate the mutex algorithms. It is our second attempt to
+implement a mutex using futexes.
 
 ```go
 package listing12_12
