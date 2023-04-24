@@ -6,18 +6,16 @@ import (
     "sync/atomic"
 )
 
-type SpinLock struct {
-    isLocked atomic.Bool
-}
+type SpinLock atomic.Bool
 
 func (s *SpinLock) Lock() {
-    for !s.isLocked.CompareAndSwap(false, true) {
+    for !(*atomic.Bool)(s).CompareAndSwap(false, true) {
         runtime.Gosched()
     }
 }
 
 func (s *SpinLock) Unlock() {
-    s.isLocked.Store(false)
+    (*atomic.Bool)(s).Store(false)
 }
 
 func NewSpinLock() sync.Locker {
