@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"math/rand"
 	"time"
 )
@@ -22,9 +23,9 @@ func main() {
 	for {
 		select {
 		case n := <-numbers:
-			println(n)
+			fmt.Println(n)
 		case <-timeout:
-			println("Stopping reading after timeout")
+			fmt.Println("Stopping reading after timeout")
 			return
 		}
 	}
