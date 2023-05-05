@@ -18,7 +18,9 @@ In later chapters we cover how to wait for threads to complete their work
 func countLetters(url string, frequency map[string]int) {
 	resp, _ := http.Get(url)
 	defer resp.Body.Close()
-
+	if resp.StatusCode != 200 {
+		panic("Server's error: " + resp.Status)
+	}
 	body, _ := io.ReadAll(resp.Body)
 	wordRegex := regexp.MustCompile(`[a-zA-Z]+`)
 	for _, word := range wordRegex.FindAllString(string(body), -1) {
