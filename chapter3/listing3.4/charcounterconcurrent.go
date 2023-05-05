@@ -19,6 +19,9 @@ In later chapters we cover how to wait for threads to complete their work
 func countLetters(url string, frequency []int) {
     resp, _ := http.Get(url)
     defer resp.Body.Close()
+    if resp.StatusCode != 200 {
+        panic("Server returning error status code: " + resp.Status)
+    }
     body, _ := io.ReadAll(resp.Body)
     for _, b := range body {
         c := strings.ToLower(string(b))
@@ -32,7 +35,7 @@ func countLetters(url string, frequency []int) {
 
 func main() {
     var frequency = make([]int, 26)
-    for i := 1000; i <= 1200; i++ {
+    for i := 1000; i <= 1030; i++ {
         url := fmt.Sprintf("https://rfc-editor.org/rfc/rfc%d.txt", i)
         go countLetters(url, frequency)
     }
