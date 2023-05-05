@@ -1,7 +1,7 @@
 package main
 
 import (
-    "crypto/md5"
+    "crypto/sha256"
     "fmt"
     "github.com/cutajarj/ConcurrentProgrammingWithGo/chapter10/listing10.1"
     "os"
@@ -11,13 +11,13 @@ import (
 func main() {
     dir := os.Args[1]
     files, _ := os.ReadDir(dir)
-    hMd5 := md5.New()
+    sha := sha256.New()
     for _, file := range files {
         if !file.IsDir() {
             fpath := filepath.Join(dir, file.Name())
             hashOnFile := listing10_1.FHash(fpath)
-            hMd5.Write(hashOnFile)
+            sha.Write(hashOnFile)
         }
     }
-    fmt.Printf("%s - %x\n", dir, hMd5.Sum(nil))
+    fmt.Printf("%s - %x\n", dir, sha.Sum(nil))
 }
