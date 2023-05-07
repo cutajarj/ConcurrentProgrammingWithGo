@@ -14,6 +14,9 @@ const AllLetters = "abcdefghijklmnopqrstuvwxyz"
 func CountLetters(url string, frequency []int, mutex *sync.Mutex) {
     resp, _ := http.Get(url)
     defer resp.Body.Close()
+    if resp.StatusCode != 200 {
+        panic("Server returning error code: " + resp.Status)
+    }
     body, _ := io.ReadAll(resp.Body)
     mutex.Lock()
     for _, b := range body {
