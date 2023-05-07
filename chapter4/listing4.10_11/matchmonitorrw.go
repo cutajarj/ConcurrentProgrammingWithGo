@@ -13,17 +13,19 @@ func matchRecorder(matchEvents *list.List, mutex *sync.RWMutex) {
         mutex.Lock()
         matchEvents.PushBack("Match event " + strconv.Itoa(i))
         mutex.Unlock()
-        time.Sleep(1 * time.Second)
+        time.Sleep(200 * time.Millisecond)
         fmt.Println("Appended match event")
     }
 }
 
 func clientHandler(mEvents *list.List, mutex *sync.RWMutex, st time.Time) {
-    mutex.RLock()
-    allEvents := copyAllEvents(mEvents)
-    mutex.RUnlock()
-    timeTaken := time.Since(st)
-    fmt.Println(len(allEvents), "events copied in", timeTaken)
+    for i := 0; i < 100; i ++ {
+        mutex.RLock()
+        allEvents := copyAllEvents(mEvents)
+        mutex.RUnlock()
+        timeTaken := time.Since(st)
+        fmt.Println(len(allEvents), "events copied in", timeTaken)
+    }
 }
 
 func copyAllEvents(matchEvents *list.List) []string {
@@ -44,7 +46,7 @@ func main() {
     }
     go matchRecorder(matchEvents, &mutex)
     start := time.Now()
-    for j := 0; j < 50000; j++ {
+    for j := 0; j < 5000; j++ {
         go clientHandler(matchEvents, &mutex, start)
     }
     time.Sleep(100 * time.Second)
