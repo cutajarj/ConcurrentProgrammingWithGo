@@ -8,10 +8,10 @@ import (
 
 func main() {
     wg := sync.WaitGroup{}
-    wg.Add(201)
+    wg.Add(31)
     mutex := sync.Mutex{}
     var frequency = make([]int, 26)
-    for i := 1000; i <= 1200; i++ {
+    for i := 1000; i <= 1030; i++ {
         url := fmt.Sprintf("https://rfc-editor.org/rfc/rfc%d.txt", i)
         go func() {
             listing4_5.CountLetters(url, frequency, &mutex)
@@ -20,6 +20,8 @@ func main() {
     }
     wg.Wait()
     mutex.Lock()
-    fmt.Println(frequency)
+    for i, c := range listing4_5.AllLetters {
+        fmt.Printf("%c-%d ", c, frequency[i])
+    }
     mutex.Unlock()
 }
