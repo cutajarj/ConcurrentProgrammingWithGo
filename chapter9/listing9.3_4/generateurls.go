@@ -6,7 +6,7 @@ func generateUrls(quit <-chan int) <-chan string {
     urls := make(chan string)
     go func() {
         defer close(urls)
-        for i := 100; i <= 150; i++ {
+        for i := 100; i <= 130; i++ {
             url := fmt.Sprintf("https://rfc-editor.org/rfc/rfc%d.txt", i)
             select {
             case urls <- url:

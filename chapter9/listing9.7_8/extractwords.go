@@ -40,6 +40,9 @@ func downloadPages(quit <-chan int, urls <-chan string) <-chan string {
             case url, moreData = <-urls:
                 if moreData {
                     resp, _ := http.Get(url)
+                    if resp.StatusCode != 200 {
+                        panic("Server's error: " + resp.Status)
+                    }
                     body, _ := io.ReadAll(resp.Body)
                     pages <- string(body)
                     resp.Body.Close()
@@ -56,7 +59,7 @@ func generateUrls(quit <-chan int) <-chan string {
     urls := make(chan string)
     go func() {
         defer close(urls)
-        for i := 100; i <= 150; i++ {
+        for i := 100; i <= 130; i++ {
             url := fmt.Sprintf("https://rfc-editor.org/rfc/rfc%d.txt", i)
             select {
             case urls <- url:

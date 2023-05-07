@@ -14,6 +14,9 @@ const allLetters = "abcdefghijklmnopqrstuvwxyz"
 func countLetters(url string, frequency []int32) {
     resp, _ := http.Get(url)
     defer resp.Body.Close()
+    if resp.StatusCode != 200 {
+        panic("Server returning error code: " + resp.Status)
+    }
     body, _ := io.ReadAll(resp.Body)
     for _, b := range body {
         c := strings.ToLower(string(b))
@@ -28,9 +31,9 @@ func countLetters(url string, frequency []int32) {
 
 func main() {
     wg := sync.WaitGroup{}
-    wg.Add(201)
+    wg.Add(31)
     var frequency = make([]int32, 26)
-    for i := 1000; i <= 1200; i++ {
+    for i := 1000; i <= 1030; i++ {
         url := fmt.Sprintf("https://rfc-editor.org/rfc/rfc%d.txt", i)
         go func() {
             countLetters(url, frequency)
