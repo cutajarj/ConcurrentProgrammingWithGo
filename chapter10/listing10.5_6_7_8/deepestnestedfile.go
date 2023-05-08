@@ -31,7 +31,7 @@ func deepestNestedBlock(filename string) CodeDepth {
 
 func forkIfNeeded(path string, info os.FileInfo,
     wg *sync.WaitGroup, results chan CodeDepth) {
-    if !info.IsDir() && strings.Contains(path, ".go") {
+    if !info.IsDir() && strings.HasSuffix(path, ".go") {
         wg.Add(1)
         go func() {
             results <- deepestNestedBlock(path)
