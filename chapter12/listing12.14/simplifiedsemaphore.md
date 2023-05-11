@@ -1,6 +1,6 @@
 # Simplifying Go's internal semaphore to understand how it works
 
-Note: This code will not compile because it is meant to illustrate how
+Note: This code will not compile as since it is pseudocode. It is meant to illustrate how
 Go's internal semaphore works without the extra noise of the runtime functionality
 
 ```go
