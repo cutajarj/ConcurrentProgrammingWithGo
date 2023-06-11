@@ -7,6 +7,7 @@ import (
 
 /*
   Note: this program has a race condition for demonstration purposes
+  You might need to run this multiple times to trigger the race condition
 */
 
 func addNextNumber(nextNum *[101]int) {
