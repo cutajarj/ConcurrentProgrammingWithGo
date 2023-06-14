@@ -20,5 +20,5 @@ func main() {
     barrier := listing6_10.NewBarrier(2)
     go workAndWait("Red", 4, barrier)
     go workAndWait("Blue", 10, barrier)
-    time.Sleep(time.Duration(100) * time.Second)
+    time.Sleep(100 * time.Second)
 }
