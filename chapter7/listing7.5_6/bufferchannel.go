@@ -22,7 +22,9 @@ func main() {
     wGroup.Add(1)
     go receiver(msgChannel, &wGroup)
     for i := 1; i <= 6; i++ {
-        fmt.Println(time.Now().Format("15:04:05"), "Sending:", i)
+        size := len(msgChannel)
+        fmt.Printf("%s Sending: %d. Buffer Size: %d\n",
+            time.Now().Format("15:04:05"), i, size)
         msgChannel <- i
     }
     msgChannel <- -1
