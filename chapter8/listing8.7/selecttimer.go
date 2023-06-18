@@ -20,6 +20,7 @@ func main() {
     t, _ := strconv.Atoi(os.Args[1])
     messages := sendMsgAfter(3 * time.Second)
     timeoutDuration := time.Duration(t) * time.Second
+    fmt.Printf("Waiting for message for %d seconds...\n", t)
     select {
     case msg := <-messages:
         fmt.Println("Message received:", msg)
