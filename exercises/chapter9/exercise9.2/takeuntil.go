@@ -1,6 +1,6 @@
 package exercise9_2
 
-func TakeUntil[K any](f func(K) bool, quit chan int, input <-chan K) <-chan K {
+func TakeUntil[K any](quit chan int, f func(K) bool, input <-chan K) <-chan K {
     output := make(chan K)
     go func() {
         defer close(output)
