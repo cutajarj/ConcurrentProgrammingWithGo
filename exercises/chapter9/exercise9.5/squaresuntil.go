@@ -11,7 +11,7 @@ func main() {
 	quit := make(chan int)
 	exercise9_4.Drain(quit,
 		exercise9_3.Print(quit,
-			exercise9_2.TakeUntil(func(s int) bool { return s <= 1000000 }, quit,
+			exercise9_2.TakeUntil(quit, func(s int) bool { return s <= 1000000 } ,
 				exercise9_1.GenerateSquares(quit))))
 	<-quit
 }
