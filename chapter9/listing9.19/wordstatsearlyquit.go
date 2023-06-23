@@ -140,7 +140,7 @@ func main() {
     for i := 0; i < downloaders; i++ {
         pages[i] = downloadPages(quitWords, urls)
     }
-    words := listing9_18.Take(10000, quitWords,
+    words := listing9_18.Take(quitWords, 10000,
         extractWords(quitWords, listing9_10.FanIn(quitWords, pages...)))
     wordsMulti := listing9_14.Broadcast(quit, words, 2)
     longestResults := longestWords(quit, wordsMulti[0])

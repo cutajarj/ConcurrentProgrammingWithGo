@@ -1,6 +1,6 @@
 package listing9_18
 
-func Take[K any](n int, quit chan int, input <-chan K) <-chan K {
+func Take[K any](quit chan int, n int, input <-chan K) <-chan K {
     output := make(chan K)
     go func() {
         defer close(output)
