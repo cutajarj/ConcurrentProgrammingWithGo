@@ -7,7 +7,7 @@ import (
 )
 
 /*
-To trigger the "Server is busy" message try running this:
+To trigger the "Too Many Requests" message try running this:
 seq 1 2000 | xargs -Iname  -P100  curl -s "http://localhost:8080/index.html" | grep Busy
 */
 func main() {
@@ -21,7 +21,7 @@ func main() {
         case incomingConnections <- conn:
         default:
             fmt.Println("Server is busy")
-            conn.Write([]byte("HTTP/1.1 503 Service Unavailable\r\n\r\n" +
+            conn.Write([]byte("HTTP/1.1 429 Too Many Requests\r\n\r\n" +
                 "<html>Busy</html>\n"))
             conn.Close()
         }
