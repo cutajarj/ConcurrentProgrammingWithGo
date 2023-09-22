@@ -41,10 +41,13 @@ func guessPassword(from int, upto int, stop chan int, result chan string) {
 
 func main() {
     finished := make(chan int)
+
     passwordFound := make(chan string)
+
     for i := 1; i <= 387_420_488; i += 10_000_000 {
         go guessPassword(i, i+10_000_000, finished, passwordFound)
     }
+
     fmt.Println("password found:", <-passwordFound)
     close(passwordFound)
     time.Sleep(5 * time.Second)
