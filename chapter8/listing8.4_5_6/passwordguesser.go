@@ -21,10 +21,13 @@ func toBase27(n int) string {
 
 func guessPassword(from int, upto int, stop chan int, result chan string) {
     for guessN := from; guessN < upto; guessN += 1 {
+
         select {
+
         case <-stop:
             fmt.Printf("Stopped at %d [%d,%d)\n", guessN, from, upto)
             return
+
         default:
             if toBase27(guessN) == passwordToGuess {
                 result <- toBase27(guessN)
