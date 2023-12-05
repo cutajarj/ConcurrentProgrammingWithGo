@@ -1,7 +1,7 @@
 package main
 
 import (
-"sync"
+    "sync"
 )
 
 type ReadWriteMutex struct {
@@ -39,5 +39,3 @@ func (rw *ReadWriteMutex) ReadUnlock() {
 func (rw *ReadWriteMutex) WriteUnlock() {
     rw.globalLock.Unlock()
 }
-
-

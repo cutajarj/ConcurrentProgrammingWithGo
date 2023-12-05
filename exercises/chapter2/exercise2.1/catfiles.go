@@ -1,7 +1,7 @@
 package main
 
 import (
-"fmt"
+    "fmt"
     "log"
     "os"
     "time"
@@ -10,7 +10,7 @@ import (
 /*
   You can run this by executing:
   go run catfiles.go ../../commonfiles/txtfile1 ../../commonfiles/txtfile2 ../../commonfiles/txtfile3
- */
+*/
 
 func printFile(filename string) {
     content, err := os.ReadFile(filename)
@@ -27,4 +27,3 @@ func main() {
     }
     time.Sleep(2 * time.Second)
 }
-
