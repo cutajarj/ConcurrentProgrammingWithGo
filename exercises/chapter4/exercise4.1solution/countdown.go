@@ -23,10 +23,12 @@ func main() {
     mutex := sync.Mutex{}
     count := 5
     go countdown(&count, &mutex)
-    for count > 0 {
+    remaining := count
+    for remaining > 0 {
         time.Sleep(500 * time.Millisecond)
         mutex.Lock()
         fmt.Println(count)
+        remaining = count
         mutex.Unlock()
     }
 }
